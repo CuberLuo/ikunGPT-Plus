@@ -4,7 +4,7 @@ import type { Ref } from 'vue'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import { NAutoComplete, NButton, NInput, useDialog, useMessage } from 'naive-ui'
+import { NAutoComplete, NButton, NInput, NModal, useDialog, useMessage } from 'naive-ui'
 import html2canvas from 'html2canvas'
 import { Message } from './components'
 import { useScroll } from './hooks/useScroll'
@@ -511,12 +511,20 @@ onUnmounted(() => {
   if (loading.value)
     controller.abort()
 })
+
+const showModal = ref(false)
+const bodyStyle = {
+  width: '350px',
+}
+const toggleShowModal = () => {
+  showModal.value = true
+}
 </script>
 
 <template>
   <div class="flex flex-col w-full h-full">
     <HeaderComponent v-if="isMobile" :using-context="usingContext" @export="handleExport"
-      @toggle-using-context="toggleUsingContext" />
+      @toggle-using-context="toggleUsingContext" @toggle-show-modal="toggleShowModal" />
     <main class="flex-1 overflow-hidden">
       <div id="scrollRef" ref="scrollRef" class="h-full overflow-hidden overflow-y-auto">
         <div id="image-wrapper" class="w-full max-w-screen-xl m-auto dark:bg-[#101014]"
@@ -559,6 +567,26 @@ onUnmounted(() => {
               <SvgIcon icon="ri:download-2-line" />
             </span>
           </HoverButton>
+          <HoverButton v-if="!isMobile" @click="toggleShowModal">
+            <span class="text-xl text-[#3476ab] dark:text-white">
+              <SvgIcon icon="ri:money-cny-circle-line" />
+            </span>
+          </HoverButton>
+          <NModal
+            v-model:show="showModal"
+            class="custom-card"
+            preset="card"
+            :style="bodyStyle"
+            title="域名众筹"
+            size="huge"
+            :bordered="false"
+          >
+          如果您想支持我的服务器并帮助我获得一个域名，请使用支付宝扫码捐赠一元！<br/>
+          只要您愿意捐赠一元，您就可以成为众筹活动的一个贡献者。
+            <template #footer>
+              <img src="http://1.15.134.164/images/zfb.jpg" alt="qrcode">
+            </template>
+          </NModal>
           <!-- <HoverButton v-if="!isMobile" @click="toggleUsingContext">
             <span class="text-xl" :class="{ 'text-[#4b9e5f]': usingContext, 'text-[#a8071a]': !usingContext }">
               <SvgIcon icon="ri:chat-history-line" />

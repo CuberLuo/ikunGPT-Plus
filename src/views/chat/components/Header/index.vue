@@ -10,6 +10,7 @@ interface Props {
 interface Emit {
   (ev: 'export'): void
   (ev: 'toggleUsingContext'): void
+  (ev: 'toggleShowModal'): void
 }
 
 defineProps<Props>()
@@ -39,6 +40,9 @@ function handleExport() {
 // function toggleUsingContext() {
 //   emit('toggleUsingContext')
 // }
+function toggleShowModal() {
+  emit('toggleShowModal')
+}
 </script>
 
 <template>
@@ -67,6 +71,11 @@ function handleExport() {
             <SvgIcon icon="ri:chat-history-line" />
           </span>
         </HoverButton> -->
+        <HoverButton @click="toggleShowModal">
+            <span class="text-xl text-[#3476ab] dark:text-white">
+              <SvgIcon icon="ri:money-cny-circle-line" />
+            </span>
+          </HoverButton>
         <HoverButton @click="handleExport">
           <span class="text-xl text-[#4f555e] dark:text-white">
             <SvgIcon icon="ri:download-2-line" />
