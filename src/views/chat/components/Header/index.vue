@@ -36,9 +36,9 @@ function handleExport() {
   emit('export')
 }
 
-function toggleUsingContext() {
-  emit('toggleUsingContext')
-}
+// function toggleUsingContext() {
+//   emit('toggleUsingContext')
+// }
 </script>
 
 <template>
@@ -62,11 +62,11 @@ function toggleUsingContext() {
         {{ currentChatHistory?.title ?? '' }}
       </h1>
       <div class="flex items-center space-x-2">
-        <HoverButton @click="toggleUsingContext">
+        <!-- <HoverButton @click="toggleUsingContext">
           <span class="text-xl" :class="{ 'text-[#4b9e5f]': usingContext, 'text-[#a8071a]': !usingContext }">
             <SvgIcon icon="ri:chat-history-line" />
           </span>
-        </HoverButton>
+        </HoverButton> -->
         <HoverButton @click="handleExport">
           <span class="text-xl text-[#4f555e] dark:text-white">
             <SvgIcon icon="ri:download-2-line" />
