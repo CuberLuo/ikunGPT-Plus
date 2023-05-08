@@ -72,7 +72,7 @@ function toggleShowModal() {
           </span>
         </HoverButton> -->
         <HoverButton @click="toggleShowModal">
-            <span class="text-xl text-[#3476ab] dark:text-white">
+            <span class="text-xl text-[#FFC000]">
               <SvgIcon icon="ri:money-cny-circle-line" />
             </span>
           </HoverButton>
