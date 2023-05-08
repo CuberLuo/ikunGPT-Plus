@@ -28,7 +28,7 @@ pnpm bootstrap
 # Glob API URL
 VITE_GLOB_API_URL=/api
 
-VITE_APP_API_BASE_URL=https:第三方接口
+VITE_APP_API_BASE_URL=第三方接口
 
 # Whether long replies are supported, which may result in higher API fees
 VITE_GLOB_OPEN_LONG_REPLY=false
