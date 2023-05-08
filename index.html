@@ -13,69 +13,66 @@
 <body class="dark:bg-black">
 	<div id="app">
 		<style>
-			.loading-wrap {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				height: 100vh;
-			}
+			* {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        height: 100%;
+      }
+      body {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        background-color: black;
+        align-items: center;
+        justify-content: center;
+      }
+      .loading-wrap{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-wrap: wrap;
+      }
+      .container {
+        box-sizing: content-box;
+        height: 200px;
+        width: 200px;
+        border-radius: 50%;
+        border: 20px solid rgba(3, 233, 244, 0.825);
+        box-shadow: 0 0 10px #03e9f4 inset, 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 100px #03e9f4;
 
-			.balls {
-				width: 4em;
-				display: flex;
-				flex-flow: row nowrap;
-				align-items: center;
-				justify-content: space-between;
-			}
+        position: relative;
+        overflow: hidden;
+        border-bottom: 20px solid gray;
+        border-top: 20px solid gray;
+        border-right: 20px solid gray;
+        animation: run 1s infinite linear;
+      }
+      .container::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-image: url('./public/ball.svg');
+        height: 200px;
+        width: 200px;
+      }
+      @keyframes run {
+        to {
+          transform: rotate(1turn);
+        }
+      }
 
-			.balls div {
-				width: 0.8em;
-				height: 0.8em;
-				border-radius: 50%;
-				background-color: #4b9e5f;
-			}
-
-			.balls div:nth-of-type(1) {
-				transform: translateX(-100%);
-				animation: left-swing 0.5s ease-in alternate infinite;
-			}
-
-			.balls div:nth-of-type(3) {
-				transform: translateX(-95%);
-				animation: right-swing 0.5s ease-out alternate infinite;
-			}
-
-			@keyframes left-swing {
-
-				50%,
-				100% {
-					transform: translateX(95%);
-				}
-			}
-
-			@keyframes right-swing {
-				50% {
-					transform: translateX(-95%);
-				}
-
-				100% {
-					transform: translateX(100%);
-				}
-			}
-
-			@media (prefers-color-scheme: dark) {
-				body {
-					background: #121212;
-				}
-			}
 		</style>
-		<div class="loading-wrap">
-			<div class="balls">
-				<div></div>
-				<div></div>
-				<div></div>
-			</div>
-		</div>
+    <div class="loading-wrap">
+      <div class="container">
+      </div>
+    </div>
+		
 	</div>
 	<script type="module" src="/src/main.ts"></script>
 </body>
