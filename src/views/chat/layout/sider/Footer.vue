@@ -5,6 +5,9 @@ import { HoverButton, SvgIcon, UserAvatar } from '@/components/common'
 const Setting = defineAsyncComponent(() => import('@/components/common/Setting/index.vue'))
 
 const show = ref(false)
+const openGithub = () => {
+  window.open('https://github.com/CuberLuo/ikunGPT-Plus', '_blank')
+}
 </script>
 
 <template>
@@ -16,6 +19,11 @@ const show = ref(false)
     <HoverButton @click="show = true">
       <span class="text-xl text-[#4f555e] dark:text-white">
         <SvgIcon icon="ri:settings-4-line" />
+      </span>
+    </HoverButton>
+    <HoverButton @click="openGithub">
+      <span class="text-xl text-[#4f555e] dark:text-white">
+        <SvgIcon icon="mdi:github" />
       </span>
     </HoverButton>
 
