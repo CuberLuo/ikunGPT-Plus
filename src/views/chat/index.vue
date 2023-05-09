@@ -519,6 +519,9 @@ const bodyStyle = {
 const toggleShowModal = () => {
   showModal.value = true
 }
+const goToDocs = () => {
+  window.open('https://docs.qq.com/doc/DUmhyS3F0bHVvYk12', '_blank')
+}
 </script>
 
 <template>
@@ -581,8 +584,13 @@ const toggleShowModal = () => {
             size="huge"
             :bordered="false"
           >
-          如果您想支持我的服务器并帮助我获得一个域名，请使用支付宝扫码捐赠一元！<br>
-          只要您愿意捐赠一元，您就可以成为众筹活动的一个贡献者。
+            <template #header-extra>
+              <NButton type="primary" size="small" dashed @click="goToDocs()">
+                众筹进度
+              </NButton>
+            </template>
+            如果您想支持我的服务器并帮助我获得一个域名，请使用支付宝扫码捐赠一元！<br>
+            只要您愿意捐赠一元，您就可以成为众筹活动的一个贡献者。
             <template #footer>
               <img src="http://1.15.134.164/images/zfb.jpg" alt="qrcode">
             </template>
