@@ -18,6 +18,8 @@ import { useAppStore, useChatStore, usePromptStore } from '@/store'
 import { fetchChatAPIProcess } from '@/api'
 import { t } from '@/locales'
 import JiMusic from '@/assets/ji.mp3'
+import LogoPic from '@/assets/logo.webp'
+import ZfbPic from '@/assets/zfb.jpg'
 // eslint-disable-next-line import/order
 import axios from 'axios'
 
@@ -536,7 +538,7 @@ const goToDocs = () => {
             <div class="flex items-center justify-center mt-4 text-center text-neutral-300">
               <SvgIcon icon="ri:bubble-chart-fill" class="mr-2 text-3xl" />
               <span>{{ $t('common.blankHints') }}</span>
-              <img src="http://1.15.134.164/images/logo.webp">
+              <img :src="LogoPic">
             </div>
           </template>
           <template v-else>
@@ -580,7 +582,7 @@ const goToDocs = () => {
             class="custom-card"
             preset="card"
             :style="bodyStyle"
-            title="域名众筹"
+            title="爱心众筹"
             size="huge"
             :bordered="false"
           >
@@ -589,10 +591,10 @@ const goToDocs = () => {
                 众筹进度
               </NButton>
             </template>
-            如果您想支持我的服务器并帮助我获得一个域名，请使用支付宝扫码捐赠一元！<br>
+            如果您想支持坤坤ChatGPT，请使用支付宝扫码捐赠一元！<br>
             只要您愿意捐赠一元，您就可以成为众筹活动的一个贡献者。
             <template #footer>
-              <img src="http://1.15.134.164/images/zfb.jpg" alt="qrcode">
+              <img :src="ZfbPic" alt="qrcode">
             </template>
           </NModal>
           <!-- <HoverButton v-if="!isMobile" @click="toggleUsingContext">
