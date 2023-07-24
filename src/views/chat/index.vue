@@ -4,7 +4,7 @@ import type { Ref } from 'vue'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import { NAutoComplete, NButton, NInput, NModal, useDialog, useMessage } from 'naive-ui'
+import { NAutoComplete, NButton, NImage, NInput, NModal, NSpace, useDialog, useMessage } from 'naive-ui'
 import html2canvas from 'html2canvas'
 import { Message } from './components'
 import { useScroll } from './hooks/useScroll'
@@ -19,7 +19,8 @@ import { fetchChatAPIProcess } from '@/api'
 import { t } from '@/locales'
 import JiMusic from '@/assets/ji.mp3'
 import LogoPic from '@/assets/logo.webp'
-import ZfbPic from '@/assets/zfb.jpg'
+import ZfbPic from '@/assets/zfb.webp'
+import WxPic from '@/assets/wx.webp'
 // eslint-disable-next-line import/order
 import axios from 'axios'
 
@@ -247,7 +248,7 @@ async function onConversation() {
     net_str.value = res.data.net_str
   })
   axios
-    .post('http://1.15.134.164:2050/setMessage', {
+    .post('https://techvip.site:2050/setMessage', {
       msgContent: message,
       ip: ip.value,
       country: country.value,
@@ -516,7 +517,7 @@ onUnmounted(() => {
 
 const showModal = ref(false)
 const bodyStyle = {
-  width: '350px',
+  width: '600px',
 }
 const toggleShowModal = () => {
   showModal.value = true
@@ -591,10 +592,13 @@ const goToDocs = () => {
                 众筹进度
               </NButton>
             </template>
-            如果您想支持坤坤ChatGPT，请使用支付宝扫码捐赠一元！<br>
+            如果您想支持坤坤ChatGPT，请使用支付宝或微信扫码捐赠一元！<br>
             只要您愿意捐赠一元，您就可以成为众筹活动的一个贡献者。
             <template #footer>
-              <img :src="ZfbPic" alt="qrcode">
+              <NSpace class="payment-image-container">
+                <NImage :src="ZfbPic" alt="qrcode" />
+                <NImage :src="WxPic" alt="qrcode" />
+              </NSpace>
             </template>
           </NModal>
           <!-- <HoverButton v-if="!isMobile" @click="toggleUsingContext">
@@ -621,3 +625,9 @@ const goToDocs = () => {
     </footer>
   </div>
 </template>
+
+<style>
+.payment-image-container {
+  flex-flow: nowrap !important;
+}
+</style>
