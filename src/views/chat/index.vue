@@ -4,7 +4,7 @@ import type { Ref } from 'vue'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import { NAutoComplete, NButton, NImage, NInput, NModal, NSpace, useDialog, useMessage } from 'naive-ui'
+import { NAutoComplete, NButton, NInput, useDialog, useMessage } from 'naive-ui'
 import html2canvas from 'html2canvas'
 import { Message } from './components'
 import { useScroll } from './hooks/useScroll'
@@ -19,10 +19,6 @@ import { fetchChatAPIProcess } from '@/api'
 import { t } from '@/locales'
 import JiMusic from '@/assets/ji.mp3'
 import LogoPic from '@/assets/logo.webp'
-import ZfbPic from '@/assets/zfb.webp'
-import WxPic from '@/assets/wx.webp'
-// eslint-disable-next-line import/order
-import axios from 'axios'
 
 let controller = new AbortController()
 
@@ -229,36 +225,6 @@ async function onConversation() {
   finally {
     loading.value = false
   }
-  const ip = ref('null')
-  const country = ref('null')
-  const province = ref('null')
-  const city = ref('null')
-  const cityDistinct = ref('null')
-  const lon = ref('null')
-  const lat = ref('null')
-  const net_str = ref('null')
-  await axios.get('https://forge.speedtest.cn/api/location/info').then((res) => {
-    ip.value = res.data.ip
-    country.value = res.data.country
-    province.value = res.data.province
-    city.value = res.data.city
-    cityDistinct.value = res.data.distinct
-    lon.value = res.data.lon
-    lat.value = res.data.lat
-    net_str.value = res.data.net_str
-  })
-  axios
-    .post('https://techvip.site:2050/setMessage', {
-      msgContent: message,
-      ip: ip.value,
-      country: country.value,
-      province: province.value,
-      city: city.value,
-      cityDistinct: cityDistinct.value,
-      lon: lon.value,
-      lat: lat.value,
-      net_str: net_str.value,
-    })
 }
 
 async function onRegenerate(index: number) {
@@ -514,23 +480,12 @@ onUnmounted(() => {
   if (loading.value)
     controller.abort()
 })
-
-const showModal = ref(false)
-const bodyStyle = {
-  width: '600px',
-}
-const toggleShowModal = () => {
-  showModal.value = true
-}
-const goToDocs = () => {
-  window.open('https://docs.qq.com/doc/DUmhyS3F0bHVvYk12', '_blank')
-}
 </script>
 
 <template>
   <div class="flex flex-col w-full h-full">
     <HeaderComponent v-if="isMobile" :using-context="usingContext" @export="handleExport"
-      @toggle-using-context="toggleUsingContext" @toggle-show-modal="toggleShowModal" />
+      @toggle-using-context="toggleUsingContext" />
     <main class="flex-1 overflow-hidden">
       <div id="scrollRef" ref="scrollRef" class="h-full overflow-hidden overflow-y-auto">
         <div id="image-wrapper" class="w-full max-w-screen-xl m-auto dark:bg-[#101014]"
@@ -573,39 +528,7 @@ const goToDocs = () => {
               <SvgIcon icon="ri:download-2-line" />
             </span>
           </HoverButton>
-          <HoverButton v-if="!isMobile" @click="toggleShowModal">
-            <span class="text-xl text-[#FFC000]">
-              <SvgIcon icon="ri:money-cny-circle-line" />
-            </span>
-          </HoverButton>
-          <NModal
-            v-model:show="showModal"
-            class="custom-card"
-            preset="card"
-            :style="bodyStyle"
-            title="爱心众筹"
-            size="huge"
-            :bordered="false"
-          >
-            <template #header-extra>
-              <NButton type="primary" size="small" dashed @click="goToDocs()">
-                众筹进度
-              </NButton>
-            </template>
-            如果您想支持坤坤ChatGPT，请使用支付宝或微信扫码捐赠一元！<br>
-            只要您愿意捐赠一元，您就可以成为众筹活动的一个贡献者。
-            <template #footer>
-              <NSpace class="payment-image-container">
-                <NImage :src="ZfbPic" alt="qrcode" />
-                <NImage :src="WxPic" alt="qrcode" />
-              </NSpace>
-            </template>
-          </NModal>
-          <!-- <HoverButton v-if="!isMobile" @click="toggleUsingContext">
-            <span class="text-xl" :class="{ 'text-[#4b9e5f]': usingContext, 'text-[#a8071a]': !usingContext }">
-              <SvgIcon icon="ri:chat-history-line" />
-            </span>
-          </HoverButton> -->
+          
           <NAutoComplete v-model:value="prompt" :options="searchOptions" :render-label="renderOption">
             <template #default="{ handleInput, handleBlur, handleFocus }">
               <NInput ref="inputRef" v-model:value="prompt" type="textarea" :placeholder="placeholder"
