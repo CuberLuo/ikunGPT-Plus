@@ -27,6 +27,10 @@ export function setLocale(locale: Language) {
   i18n.global.locale = locale
 }
 
+export function getLocale() {
+  return i18n.global.locale
+}
+
 export function setupI18n(app: App) {
   app.use(i18n)
 }

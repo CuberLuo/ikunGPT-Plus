@@ -1,7 +1,11 @@
 import { onMounted, onUpdated } from 'vue'
 import { copyText } from '@/utils/format'
+import { useMessage } from 'naive-ui'
+import { t } from '@/locales'
 
 export function useCopyCode() {
+  const message = useMessage()
+
   function copyCodeBlock() {
     const codeBlockWrapper = document.querySelectorAll('.code-block-wrapper')
     codeBlockWrapper.forEach((wrapper) => {
@@ -13,6 +17,7 @@ export function useCopyCode() {
             navigator.clipboard.writeText(codeBlock.textContent ?? '')
           else
             copyText({ text: codeBlock.textContent ?? '', origin: true })
+          message.success(t('chat.copied'))
         })
       }
     })

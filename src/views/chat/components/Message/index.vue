@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import { computed, ref } from 'vue'
-import { NDropdown } from 'naive-ui'
+import { NDropdown, useMessage } from 'naive-ui'
 import AvatarComponent from './Avatar.vue'
 import TextComponent from './Text.vue'
 import { SvgIcon } from '@/components/common'
@@ -36,6 +36,8 @@ const asRawText = ref(props.inversion)
 
 const messageRef = ref<HTMLElement>()
 
+const message = useMessage()
+
 const options = computed(() => {
   const common = [
     {
@@ -65,6 +67,7 @@ function handleSelect(key: 'copyText' | 'delete' | 'toggleRenderType') {
   switch (key) {
     case 'copyText':
       copyText({ text: props.text ?? '' })
+      message.success(t('chat.copied'))
       return
     case 'toggleRenderType':
       asRawText.value = !asRawText.value
